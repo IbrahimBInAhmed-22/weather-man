@@ -1,5 +1,7 @@
-const prompt = require('prompt-sync')({sigint: true});
-const fs = require('fs');
+import promptSync from 'prompt-sync';
+import fs from "fs";
+
+const prompt = promptSync({ sigint: true });
 
 class DAte{
     constructor(str, year, month, day)
@@ -632,7 +634,13 @@ class WeatherDatabase{
 
     saveToCsv()
     {
-        fs.writeFileSync("output.csv",this.convertToCSV());
+        fs.writeFileSync("output.csv",this.convertToCSV(),(err)=>
+        {
+            if(err)
+            {
+                return console.error(`Error while trying to write file. ${err}`);
+            }
+        });
     }
 
 
